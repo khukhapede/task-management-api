@@ -64,6 +64,9 @@ export class Task {
   @JoinColumn({ name: 'categoryId' })
   category: Category;
 
+  @Column({ nullable: true })
+  attachment: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

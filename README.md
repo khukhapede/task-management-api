@@ -37,21 +37,24 @@ A RESTful API for task management built with NestJS, PostgreSQL, TypeORM, and JW
 ## 🔧 Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/task-management-api.git
    cd task-management-api
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Setup PostgreSQL database**
+
    ```sql
    -- Connect to PostgreSQL
    psql -U postgres
-   
+
    -- Create user and database
    CREATE USER task_manager WITH PASSWORD 'your_password';
    CREATE DATABASE task_management OWNER task_manager;
@@ -59,23 +62,25 @@ A RESTful API for task management built with NestJS, PostgreSQL, TypeORM, and JW
    ```
 
 4. **Configure environment variables**
-   
+
    Create `.env` file in the root directory:
+
    ```env
    DATABASE_HOST=localhost
    DATABASE_PORT=5432
    DATABASE_USER=task_manager
    DATABASE_PASSWORD=your_password
    DATABASE_NAME=task_management
-   
+
    JWT_SECRET=your_super_secret_key_change_this_in_production
    ```
 
 5. **Run the application**
+
    ```bash
    # Development mode
    npm run start:dev
-   
+
    # Production mode
    npm run build
    npm run start:prod
@@ -86,42 +91,47 @@ A RESTful API for task management built with NestJS, PostgreSQL, TypeORM, and JW
 ## 📚 API Endpoints
 
 ### Authentication
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/auth/register` | Register new user | ❌ |
-| POST | `/auth/login` | Login user | ❌ |
-| GET | `/auth/profile` | Get current user | ✅ |
+
+| Method | Endpoint         | Description       | Auth Required |
+| ------ | ---------------- | ----------------- | ------------- |
+| POST   | `/auth/register` | Register new user | ❌            |
+| POST   | `/auth/login`    | Login user        | ❌            |
+| GET    | `/auth/profile`  | Get current user  | ✅            |
 
 ### Users
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/users` | Get all users | ✅ |
-| GET | `/users/:id` | Get user by ID | ✅ |
-| DELETE | `/users/:id` | Delete user | ✅ |
+
+| Method | Endpoint     | Description    | Auth Required |
+| ------ | ------------ | -------------- | ------------- |
+| GET    | `/users`     | Get all users  | ✅            |
+| GET    | `/users/:id` | Get user by ID | ✅            |
+| DELETE | `/users/:id` | Delete user    | ✅            |
 
 ### Tasks
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/tasks` | Create task | ✅ |
-| GET | `/tasks` | Get all user's tasks | ✅ |
-| GET | `/tasks?status=todo` | Filter tasks by status | ✅ |
-| GET | `/tasks/overdue` | Get overdue tasks | ✅ |
-| GET | `/tasks/:id` | Get task by ID | ✅ |
-| PATCH | `/tasks/:id` | Update task | ✅ |
-| DELETE | `/tasks/:id` | Delete task | ✅ |
+
+| Method | Endpoint             | Description            | Auth Required |
+| ------ | -------------------- | ---------------------- | ------------- |
+| POST   | `/tasks`             | Create task            | ✅            |
+| GET    | `/tasks`             | Get all user's tasks   | ✅            |
+| GET    | `/tasks?status=todo` | Filter tasks by status | ✅            |
+| GET    | `/tasks/overdue`     | Get overdue tasks      | ✅            |
+| GET    | `/tasks/:id`         | Get task by ID         | ✅            |
+| PATCH  | `/tasks/:id`         | Update task            | ✅            |
+| DELETE | `/tasks/:id`         | Delete task            | ✅            |
 
 ### Categories
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/categories` | Create category | ✅ |
-| GET | `/categories` | Get all categories | ✅ |
-| GET | `/categories/:id` | Get category by ID | ✅ |
-| PATCH | `/categories/:id` | Update category | ✅ |
-| DELETE | `/categories/:id` | Delete category | ✅ |
+
+| Method | Endpoint          | Description        | Auth Required |
+| ------ | ----------------- | ------------------ | ------------- |
+| POST   | `/categories`     | Create category    | ✅            |
+| GET    | `/categories`     | Get all categories | ✅            |
+| GET    | `/categories/:id` | Get category by ID | ✅            |
+| PATCH  | `/categories/:id` | Update category    | ✅            |
+| DELETE | `/categories/:id` | Delete category    | ✅            |
 
 ## 📖 Usage Examples
 
 ### Register a new user
+
 ```bash
 POST http://localhost:3000/auth/register
 Content-Type: application/json
@@ -134,6 +144,7 @@ Content-Type: application/json
 ```
 
 ### Login
+
 ```bash
 POST http://localhost:3000/auth/login
 Content-Type: application/json
@@ -145,6 +156,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -158,6 +170,7 @@ Content-Type: application/json
 ```
 
 ### Create a task (requires authentication)
+
 ```bash
 POST http://localhost:3000/tasks
 Authorization: Bearer YOUR_JWT_TOKEN
@@ -198,28 +211,31 @@ src/
 
 ## 🔐 Environment Variables
 
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `DATABASE_HOST` | PostgreSQL host | `localhost` |
-| `DATABASE_PORT` | PostgreSQL port | `5432` |
-| `DATABASE_USER` | Database username | `task_manager` |
-| `DATABASE_PASSWORD` | Database password | `your_password` |
-| `DATABASE_NAME` | Database name | `task_management` |
-| `JWT_SECRET` | Secret key for JWT | `your_secret_key` |
+| Variable            | Description        | Example           |
+| ------------------- | ------------------ | ----------------- |
+| `DATABASE_HOST`     | PostgreSQL host    | `localhost`       |
+| `DATABASE_PORT`     | PostgreSQL port    | `5432`            |
+| `DATABASE_USER`     | Database username  | `task_manager`    |
+| `DATABASE_PASSWORD` | Database password  | `your_password`   |
+| `DATABASE_NAME`     | Database name      | `task_management` |
+| `JWT_SECRET`        | Secret key for JWT | `your_secret_key` |
 
 ## 📝 Enum Values
 
 ### Task Status
+
 - `todo`
 - `in_progress`
 - `done`
 
 ### Task Priority
+
 - `low`
 - `medium`
 - `high`
 
 ### User Role
+
 - `user` (default)
 - `admin`
 
@@ -239,6 +255,7 @@ npm run test:cov
 ## 🚀 Deployment
 
 ### Using Docker (optional)
+
 ```bash
 # Build image
 docker build -t task-management-api .
@@ -257,9 +274,10 @@ This project is licensed under the MIT License.
 
 ## 👤 Author
 
-**Your Name**
-- GitHub: [@your-username](https://github.com/your-username)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
+**Khusnan Hadi Eka Panca Dharma**
+
+- GitHub: [@your-username](https://github.com/khukhapede)
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/khusnan-hadi-eka/)
 
 ## 🙏 Acknowledgments
 

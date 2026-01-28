@@ -77,4 +77,25 @@ export class TasksService {
       .orderBy('task.dueDate', 'ASC')
       .getMany();
   }
+
+  async updateAttachment(
+    taskId: string,
+    userId: string,
+    filename: string,
+  ): Promise<Task> {
+    const task = await this.findOne(taskId, userId);
+    task.attachment = filename;
+    return this.tasksRepository.save(task);
+  }
+
+  async getAttachmentUrl(
+    taskId: string,
+    userId: string,
+  ): Promise<string | null> {
+    const task = await this.findOne(taskId, userId);
+    if (!task.attachment) {
+      return null;
+    }
+    return `/uploads/attachments/${task.attachment}`;
+  }
 }

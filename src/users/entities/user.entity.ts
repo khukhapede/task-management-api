@@ -28,6 +28,9 @@ export class User {
   })
   role: UserRole;
 
+  @Column({ nullable: true })
+  avatar: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

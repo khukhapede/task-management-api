@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
@@ -37,11 +41,11 @@ export class UsersService {
 
   async findOne(id: string): Promise<User> {
     const user = await this.usersRepository.findOne({ where: { id } });
-    
+
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    
+
     return user;
   }
 
@@ -51,9 +55,24 @@ export class UsersService {
 
   async remove(id: string): Promise<void> {
     const result = await this.usersRepository.delete(id);
-    
+
     if (result.affected === 0) {
       throw new NotFoundException('User not found');
     }
   }
+  async updateAvatar(userId: string, filename: string): Promise<User> {
+    const user = await this.findOne(userId);
+    user.avatar = filename;
+    return this.usersRepository.save(user);
+  }
+
+  async getAvatarUrl(userId: string): Promise<string | null> {
+  const user = await this.findOne(userId);
+  if (!user.avatar) {
+    return null;
+  }
+  return `/uploads/avatars/${user.avatar}`;
+}
+
+ 
 }
